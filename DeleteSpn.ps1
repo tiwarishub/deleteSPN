@@ -2,7 +2,12 @@
 
 $Prefix = Read-Host -Prompt 'Input service principal prefix you want to delete'
 
-$applications = AzureRmADServicePrincipal -SearchString $Prefix;
+if ($Prefix) {
+    $applications = AzureRmADServicePrincipal -SearchString $Prefix;
+} else {
+    Write-Host "No prefix provided, exiting."
+    exit;
+}
 if (!$applications) {
     Write-Host "No application found having prefix '$Prefix'"
     exit;
