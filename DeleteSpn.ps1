@@ -1,4 +1,4 @@
-$graphToken = "Bearer <Token>"
+$graphToken = "<TOKEN>"
 
 if ([string]::IsNullOrEmpty($(Get-AzureRmContext).Account)) {Login-AzureRmAccount}
 
@@ -21,6 +21,6 @@ if ($confirm -eq 'Y') {
     Start-Sleep -s 120
     $applications.ObjectId | ForEach-Object {
         $uri = "https://graph.microsoft.com/beta/directory/deletedItems/$_"
-        Invoke-RestMethod -Method DELETE -Headers @{"Authorization"=$graphToken; "Accept"="application/json, text/plain, */*"} -Uri $uri
+        Invoke-RestMethod -Method DELETE -Headers @{"Authorization"="Bearer $graphToken"; "Accept"="application/json, text/plain, */*"} -Uri $uri
     }
 }
